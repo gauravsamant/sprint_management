@@ -19,15 +19,18 @@ router.post('/', (req, res, next) => {
     res.json(sprnt)
 });
 
-router.post('/:sprint', (req, res, next) => {
-    let sprint_stories = Story.filter(st => st.sprint_id === req.params.sprint)
+router.get('/:sprint', (req, res, next) => {
+    let spr = Sprint.filter(s => s.sprint_name === req.params.sprint)
+    let sprint_stories = Story.filter(st => st.sprint_id === spr.sprint_id)
     console.log(sprint_stories)
     res.json(sprint_stories)
 });
 
 
-router.post('/:sprint/:lane', (req, res, next) => {
-    let sprint_story_lane = Story.filter(st => st.sprint_id === req.params.sprint && st.status === req.params.lane)
+router.get('/:sprint/:lane', (req, res, next) => {
+    let spr = Sprint.filter(s => s.sprint_name === req.params.sprint)
+    let lane = Story.filter(s => s.status === req.params.lane)
+    let sprint_story_lane = Story.filter(st => st.sprint_id === spr.sprint_id && st.status === lane)
     console.log(sprint_story_lane)
     res.json(sprint_story_lane)
 });
